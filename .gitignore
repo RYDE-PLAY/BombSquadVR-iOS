@@ -1,0 +1,47 @@
+# Local OS/editor state
+.DS_Store
+.AppleDouble
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Generated build state (keep all source files reviewable)
+Build/
+DerivedData/
+**/Build/
+**/DerivedData/
+ballistica/build/
+ballistica/.cache/
+ballistica/.venv/
+ballistica/tools/pcommand
+ballistica/tools/bacloud
+ballistica/tools/cloudshell
+**/__pycache__/
+**/*.py[cod]
+**/*.xcuserstate
+**/xcuserdata/
+
+# Locally fetched Cardboard checkout and CocoaPods output.
+# The bootstrap script downloads these from the dependency revision.
+BombSquadVR/ThirdParty/cardboard/
+
+# Generated/private Ballistica resources. Keep only the instructions.
+BallisticaResources/*
+!BallisticaResources/README.md
+
+# Apple signing material and local overrides
+*.ipa
+*.xcarchive/
+*.dSYM/
+*.dSYM.zip
+*.mobileprovision
+*.provisionprofile
+*.p12
+*.p8
+*.cer
+*.crt
+*.pem
+*.key
+Config/Local.xcconfig
+BombSquadVR/Config/Local.xcconfig

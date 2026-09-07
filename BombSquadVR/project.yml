@@ -1,0 +1,145 @@
+name: BombSquadVR
+options:
+  minimumXcodeGenVersion: 2.45.0
+  deploymentTarget:
+    iOS: "16.0"
+  groupSortPosition: top
+settings:
+  base:
+    CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED: YES
+    CLANG_CXX_LANGUAGE_STANDARD: c++23
+    CLANG_CXX_LIBRARY: libc++
+    CODE_SIGN_STYLE: Automatic
+    DEVELOPMENT_TEAM: ""
+    BOMBSQUADVR_DISPLAY_NAME: BombSquad VR
+    ENABLE_USER_SCRIPT_SANDBOXING: NO
+    GCC_PREPROCESSOR_DEFINITIONS:
+      - $(inherited)
+      - GLES_SILENCE_DEPRECATION=1
+    IPHONEOS_DEPLOYMENT_TARGET: "16.0"
+    SWIFT_VERSION: "5.0"
+    TARGETED_DEVICE_FAMILY: "1"
+targets:
+  BombSquadVR:
+    type: application
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources:
+      - path: App
+      - path: ThirdParty/cardboard/sdk/qrcode/ios/sdk.bundle
+        buildPhase: resources
+      - path: ../BallisticaResources
+        buildPhase: resources
+        type: folder
+      - path: BallisticaBridge
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.froemling.bombsquad.vr.prototype
+        PRODUCT_NAME: BombSquadVR
+        INFOPLIST_FILE: App/Info.plist
+        ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: NO
+        SWIFT_OBJC_BRIDGING_HEADER: App/BombSquadVR-Bridging-Header.h
+        HEADER_SEARCH_PATHS:
+          - $(inherited)
+          - $(PROJECT_DIR)/BallisticaBridge
+          - $(PROJECT_DIR)/../ballistica/src
+          - $(PROJECT_DIR)/../ballistica/src/external/open_dynamics_engine-ef
+          - $(PROJECT_DIR)/../ballistica/build/openal-apple/artifacts/include/AL
+          - $(PROJECT_DIR)/ThirdParty/cardboard/sdk/include
+          - $(PROJECT_DIR)/ThirdParty/cardboard/proto
+          - $(PROJECT_DIR)/ThirdParty/cardboard/third_party/unity_plugin_api
+          - $(PROJECT_DIR)/ThirdParty/cardboard/Pods/Headers/Public
+          - $(PROJECT_DIR)/ThirdParty/cardboard/Pods/Headers/Public/Protobuf-C++
+        HEADER_SEARCH_PATHS[sdk=iphoneos*]:
+          - $(inherited)
+          - $(PROJECT_DIR)/BallisticaBridge
+          - $(PROJECT_DIR)/../ballistica/src
+          - $(PROJECT_DIR)/../ballistica/src/external/open_dynamics_engine-ef
+          - $(PROJECT_DIR)/../ballistica/build/python_apple_iphoneos_arm64/include
+          - $(PROJECT_DIR)/../ballistica/build/openal-apple/artifacts/include/AL
+          - $(PROJECT_DIR)/ThirdParty/cardboard/sdk/include
+          - $(PROJECT_DIR)/ThirdParty/cardboard/proto
+          - $(PROJECT_DIR)/ThirdParty/cardboard/third_party/unity_plugin_api
+          - $(PROJECT_DIR)/ThirdParty/cardboard/Pods/Headers/Public
+          - $(PROJECT_DIR)/ThirdParty/cardboard/Pods/Headers/Public/Protobuf-C++
+        HEADER_SEARCH_PATHS[sdk=iphonesimulator*]:
+          - $(inherited)
+          - $(PROJECT_DIR)/BallisticaBridge
+          - $(PROJECT_DIR)/../ballistica/src
+          - $(PROJECT_DIR)/../ballistica/src/external/open_dynamics_engine-ef
+          - $(PROJECT_DIR)/../ballistica/build/python_apple_iphonesimulator_arm64/include
+          - $(PROJECT_DIR)/../ballistica/build/openal-apple/artifacts/include/AL
+          - $(PROJECT_DIR)/ThirdParty/cardboard/sdk/include
+          - $(PROJECT_DIR)/ThirdParty/cardboard/proto
+          - $(PROJECT_DIR)/ThirdParty/cardboard/third_party/unity_plugin_api
+          - $(PROJECT_DIR)/ThirdParty/cardboard/Pods/Headers/Public
+          - $(PROJECT_DIR)/ThirdParty/cardboard/Pods/Headers/Public/Protobuf-C++
+        LIBRARY_SEARCH_PATHS:
+          - $(inherited)
+          - $(PROJECT_DIR)/Build/Cardboard/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+          - $(PROJECT_DIR)/Build/Cardboard/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Protobuf-C++
+        LIBRARY_SEARCH_PATHS[sdk=iphoneos*]:
+          - $(inherited)
+          - $(PROJECT_DIR)/../ballistica/build/ios_vr_native/iphoneos-arm64
+          - $(PROJECT_DIR)/../ballistica/build/ios_vr_plus/iphoneos-arm64
+          - $(PROJECT_DIR)/../ballistica/build/python_apple_iphoneos_arm64
+          - $(PROJECT_DIR)/Build/Cardboard/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+          - $(PROJECT_DIR)/Build/Cardboard/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Protobuf-C++
+        LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]:
+          - $(inherited)
+          - $(PROJECT_DIR)/../ballistica/build/ios_vr_native/iphonesimulator-arm64
+          - $(PROJECT_DIR)/../ballistica/build/ios_vr_plus/iphonesimulator-arm64
+          - $(PROJECT_DIR)/../ballistica/build/python_apple_iphonesimulator_arm64
+          - $(PROJECT_DIR)/Build/Cardboard/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+          - $(PROJECT_DIR)/Build/Cardboard/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Protobuf-C++
+        EXCLUDED_ARCHS[sdk=iphonesimulator*]: x86_64
+        OTHER_LDFLAGS:
+          - $(inherited)
+          - -ObjC
+          - -lballistica_ios_vr
+          - -lballisticaplus_ios
+          - -lpython_merged
+          - -lz
+          - -lsqlite3
+          - -liconv
+          - $(PROJECT_DIR)/Build/Cardboard/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/GfxPluginCardboard.a
+          - -lProtobuf-C++
+          - -lc++
+    preBuildScripts:
+      - name: Build Ballistica Engine
+        basedOnDependencyAnalysis: false
+        script: |
+          set -euo pipefail
+          "$PROJECT_DIR/Scripts/build_ballistica_ios_vr_engine.py"
+      - name: Build Cardboard SDK
+        basedOnDependencyAnalysis: false
+        script: |
+          set -euo pipefail
+          if [[ ! -d "$PROJECT_DIR/ThirdParty/cardboard/Cardboard.xcworkspace" \
+             || ! -d "$PROJECT_DIR/ThirdParty/cardboard/Pods/Protobuf-C++/src" ]]; then
+            "$PROJECT_DIR/Scripts/bootstrap_cardboard.sh"
+          fi
+          python3 "$PROJECT_DIR/Scripts/build_cardboard_ios.py"
+    dependencies:
+      - sdk: UIKit.framework
+      - sdk: GameController.framework
+      - sdk: GLKit.framework
+      - sdk: OpenGLES.framework
+      - sdk: CoreText.framework
+      - sdk: CoreMotion.framework
+      - sdk: AVFoundation.framework
+      - framework: ../ballistica/build/openal-apple/artifacts/OpenALSoft.xcframework
+        embed: true
+      - sdk: Network.framework
+      - sdk: QuartzCore.framework
+      - sdk: Metal.framework
+      - sdk: MetalKit.framework
+schemes:
+  BombSquadVR:
+    build:
+      targets:
+        BombSquadVR: all
+    run:
+      config: Debug
+    test:
+      config: Debug

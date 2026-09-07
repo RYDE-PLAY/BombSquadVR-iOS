@@ -1,0 +1,706 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		07F29A5A847B7A3FB81E4278 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79895DE4A7A88FF3009F052B /* CoreMotion.framework */; };
+		26888504568829540E3F20C9 /* VRGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED568CF6D98E474151413DA /* VRGameViewController.swift */; };
+		305C074713AA0B02C264B915 /* BSCardboardBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = D5419268A6208080BF5A7833 /* BSCardboardBridge.mm */; };
+		3EEE173B6265A093B13A89CB /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FB062437E762239B82C30D9 /* Metal.framework */; };
+		4469AA175CA9DBE4757D11CA /* sdk.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A3F9716E0123F0E9B71EA4E8 /* sdk.bundle */; };
+		4B5EB7068EF876FF1F3B71CE /* VRPoseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F5C3C28EA945E5CF36A362 /* VRPoseProvider.swift */; };
+		566B5B916A400DA754CC4912 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A27B13F97FCF70C7FB52E72 /* LaunchScreen.storyboard */; };
+		79BA96ABF112FB81B1DE4E6C /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C089F08CDD435BC86D11AAE6 /* Network.framework */; };
+		7E181732A9DEF5FEBD6B24D8 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A05730A316276CF171AE29C2 /* GLKit.framework */; };
+		7E75B6102697E46F757EB4F5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3990CEE0F97391EF2C0958B5 /* QuartzCore.framework */; };
+		9A4E6C31A9637B35D5F6E7B7 /* OpenALSoft.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 575BE55615076EF2BC4683FF /* OpenALSoft.xcframework */; };
+		A758B8B2B2B62E4187A50209 /* BombSquadVRBallisticaHost.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5CF807AAFBD450C22C1D29EA /* BombSquadVRBallisticaHost.mm */; };
+		BF3C4A70B424B6215E18F06D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76CE3633EF528CCFF12DF219 /* Assets.xcassets */; };
+		C34ABCCB0E22D63C3BC813D1 /* VRControllerBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4274EF9396EDBDB38F41F6A /* VRControllerBridge.swift */; };
+		C7CA07549747E6466AC25715 /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA74D4119FB69E70FD0ACCE /* GameController.framework */; };
+		CAA532749DC7B9D8F56526FE /* BallisticaResources in Resources */ = {isa = PBXBuildFile; fileRef = 8747552C83D92CE56D7BC295 /* BallisticaResources */; };
+		D5B38AA9FB95AE18E737A09E /* OpenALSoft.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 575BE55615076EF2BC4683FF /* OpenALSoft.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DAEF579E95C8AC031D2B7A68 /* CardboardSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4D0829D1F78E87A29F9A12 /* CardboardSession.swift */; };
+		DFF2EA72909497F0E04A14BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B44F60B0A3B74C26A4FA770 /* AppDelegate.swift */; };
+		EC916BA8E57D1227F45B77FB /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51C2B28EC46807B4ADFBECF8 /* MetalKit.framework */; };
+		F6688BFE8D14B4342DD5E0F6 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDE483CAB2326874DED3C3BB /* AVFoundation.framework */; };
+		F9081A8642AB5BADE98ED05F /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA55A31184AC233F36D97D5F /* OpenGLES.framework */; };
+		FD25C7DA8D5FC7A08B8EF740 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 811AF5B5011EC3D5D412D0AA /* UIKit.framework */; };
+		FF34B5AF819BF29D887CF4F1 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4E09D902B6BDC04A95C7042 /* CoreText.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E5A4DE36E2C6477519BAAADA /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D5B38AA9FB95AE18E737A09E /* OpenALSoft.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0A27B13F97FCF70C7FB52E72 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		2FB062437E762239B82C30D9 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+		33D9E3543734118BE4E839D7 /* ivorbisfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ivorbisfile.h; sourceTree = "<group>"; };
+		38BB7D9C192FC6F7B615FCD7 /* BallisticaBuildConfigIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BallisticaBuildConfigIOS.h; sourceTree = "<group>"; };
+		3990CEE0F97391EF2C0958B5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		42F29014DBA51182130A36BE /* BallisticaKit-Swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BallisticaKit-Swift.h"; sourceTree = "<group>"; };
+		45718F4380C66785FD060D7C /* uikit_pasteboard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = uikit_pasteboard.h; sourceTree = "<group>"; };
+		4ED568CF6D98E474151413DA /* VRGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VRGameViewController.swift; sourceTree = "<group>"; };
+		51C2B28EC46807B4ADFBECF8 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
+		52DB73563783B9B8AAF716FB /* BombSquadVR.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = BombSquadVR.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		575BE55615076EF2BC4683FF /* OpenALSoft.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OpenALSoft.xcframework; path = "../ballistica/build/openal-apple/artifacts/OpenALSoft.xcframework"; sourceTree = "<group>"; };
+		5CF807AAFBD450C22C1D29EA /* BombSquadVRBallisticaHost.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BombSquadVRBallisticaHost.mm; sourceTree = "<group>"; };
+		5D4D0829D1F78E87A29F9A12 /* CardboardSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardboardSession.swift; sourceTree = "<group>"; };
+		68F5C3C28EA945E5CF36A362 /* VRPoseProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VRPoseProvider.swift; sourceTree = "<group>"; };
+		72055E29C6929A851CA8E4A0 /* BombSquadVR-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BombSquadVR-Bridging-Header.h"; sourceTree = "<group>"; };
+		76CE3633EF528CCFF12DF219 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		79895DE4A7A88FF3009F052B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		7B44F60B0A3B74C26A4FA770 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		811AF5B5011EC3D5D412D0AA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		8741357DD204D4C8482D7C77 /* from_swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = from_swift.h; sourceTree = "<group>"; };
+		8747552C83D92CE56D7BC295 /* BallisticaResources */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BallisticaResources; path = ../BallisticaResources; sourceTree = SOURCE_ROOT; };
+		93E83C3D4CE5306964CB49A6 /* BSCardboardBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BSCardboardBridge.h; sourceTree = "<group>"; };
+		9AA74D4119FB69E70FD0ACCE /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = System/Library/Frameworks/GameController.framework; sourceTree = SDKROOT; };
+		A05730A316276CF171AE29C2 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		A2BFA64641941C309EB99BF7 /* BombSquadVRBallisticaHost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BombSquadVRBallisticaHost.h; sourceTree = "<group>"; };
+		A3F9716E0123F0E9B71EA4E8 /* sdk.bundle */ = {isa = PBXFileReference; lastKnownFileType = wrapper.cfbundle; path = sdk.bundle; sourceTree = "<group>"; };
+		B4E09D902B6BDC04A95C7042 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		C089F08CDD435BC86D11AAE6 /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = System/Library/Frameworks/Network.framework; sourceTree = SDKROOT; };
+		CA55A31184AC233F36D97D5F /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		D5419268A6208080BF5A7833 /* BSCardboardBridge.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BSCardboardBridge.mm; sourceTree = "<group>"; };
+		DAF786D72086CD0E4FA3EC46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		E4274EF9396EDBDB38F41F6A /* VRControllerBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VRControllerBridge.swift; sourceTree = "<group>"; };
+		EDE483CAB2326874DED3C3BB /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C4D012977A7E1D8614A32F31 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FD25C7DA8D5FC7A08B8EF740 /* UIKit.framework in Frameworks */,
+				C7CA07549747E6466AC25715 /* GameController.framework in Frameworks */,
+				7E181732A9DEF5FEBD6B24D8 /* GLKit.framework in Frameworks */,
+				F9081A8642AB5BADE98ED05F /* OpenGLES.framework in Frameworks */,
+				FF34B5AF819BF29D887CF4F1 /* CoreText.framework in Frameworks */,
+				07F29A5A847B7A3FB81E4278 /* CoreMotion.framework in Frameworks */,
+				F6688BFE8D14B4342DD5E0F6 /* AVFoundation.framework in Frameworks */,
+				9A4E6C31A9637B35D5F6E7B7 /* OpenALSoft.xcframework in Frameworks */,
+				79BA96ABF112FB81B1DE4E6C /* Network.framework in Frameworks */,
+				7E75B6102697E46F757EB4F5 /* QuartzCore.framework in Frameworks */,
+				3EEE173B6265A093B13A89CB /* Metal.framework in Frameworks */,
+				EC916BA8E57D1227F45B77FB /* MetalKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		03924349B8AC5FEFF0F6C5B6 /* ballistica */ = {
+			isa = PBXGroup;
+			children = (
+				1A8245EBB3817C3E9958DCCA /* base */,
+			);
+			path = ballistica;
+			sourceTree = "<group>";
+		};
+		1A8245EBB3817C3E9958DCCA /* base */ = {
+			isa = PBXGroup;
+			children = (
+				719DA5B3F067D8FD0FB402D1 /* app_platform */,
+			);
+			path = base;
+			sourceTree = "<group>";
+		};
+		544AF961F316B5F5919D6749 = {
+			isa = PBXGroup;
+			children = (
+				9465F4C183A375FD4A6108F9 /* App */,
+				D4BD47BE1F8A88D61B4C3906 /* BallisticaBridge */,
+				8F0017FBDD6C4A2C1C5DDEBD /* ios */,
+				8747552C83D92CE56D7BC295 /* BallisticaResources */,
+				A25378C46BB739A5D5FDE911 /* Frameworks */,
+				CDA43B5680B52F7AF3E87B6D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5ED3F86A3CEAAB2C435F3692 /* apple */ = {
+			isa = PBXGroup;
+			children = (
+				8741357DD204D4C8482D7C77 /* from_swift.h */,
+				45718F4380C66785FD060D7C /* uikit_pasteboard.h */,
+			);
+			path = apple;
+			sourceTree = "<group>";
+		};
+		719DA5B3F067D8FD0FB402D1 /* app_platform */ = {
+			isa = PBXGroup;
+			children = (
+				5ED3F86A3CEAAB2C435F3692 /* apple */,
+			);
+			path = app_platform;
+			sourceTree = "<group>";
+		};
+		8F0017FBDD6C4A2C1C5DDEBD /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				A3F9716E0123F0E9B71EA4E8 /* sdk.bundle */,
+			);
+			name = ios;
+			path = ThirdParty/cardboard/sdk/qrcode/ios;
+			sourceTree = "<group>";
+		};
+		9465F4C183A375FD4A6108F9 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				7B44F60B0A3B74C26A4FA770 /* AppDelegate.swift */,
+				76CE3633EF528CCFF12DF219 /* Assets.xcassets */,
+				72055E29C6929A851CA8E4A0 /* BombSquadVR-Bridging-Header.h */,
+				93E83C3D4CE5306964CB49A6 /* BSCardboardBridge.h */,
+				D5419268A6208080BF5A7833 /* BSCardboardBridge.mm */,
+				5D4D0829D1F78E87A29F9A12 /* CardboardSession.swift */,
+				DAF786D72086CD0E4FA3EC46 /* Info.plist */,
+				0A27B13F97FCF70C7FB52E72 /* LaunchScreen.storyboard */,
+				E4274EF9396EDBDB38F41F6A /* VRControllerBridge.swift */,
+				4ED568CF6D98E474151413DA /* VRGameViewController.swift */,
+				68F5C3C28EA945E5CF36A362 /* VRPoseProvider.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		A25378C46BB739A5D5FDE911 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EDE483CAB2326874DED3C3BB /* AVFoundation.framework */,
+				79895DE4A7A88FF3009F052B /* CoreMotion.framework */,
+				B4E09D902B6BDC04A95C7042 /* CoreText.framework */,
+				9AA74D4119FB69E70FD0ACCE /* GameController.framework */,
+				A05730A316276CF171AE29C2 /* GLKit.framework */,
+				2FB062437E762239B82C30D9 /* Metal.framework */,
+				51C2B28EC46807B4ADFBECF8 /* MetalKit.framework */,
+				C089F08CDD435BC86D11AAE6 /* Network.framework */,
+				575BE55615076EF2BC4683FF /* OpenALSoft.xcframework */,
+				CA55A31184AC233F36D97D5F /* OpenGLES.framework */,
+				3990CEE0F97391EF2C0958B5 /* QuartzCore.framework */,
+				811AF5B5011EC3D5D412D0AA /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CDA43B5680B52F7AF3E87B6D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				52DB73563783B9B8AAF716FB /* BombSquadVR.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D4BD47BE1F8A88D61B4C3906 /* BallisticaBridge */ = {
+			isa = PBXGroup;
+			children = (
+				03924349B8AC5FEFF0F6C5B6 /* ballistica */,
+				38BB7D9C192FC6F7B615FCD7 /* BallisticaBuildConfigIOS.h */,
+				42F29014DBA51182130A36BE /* BallisticaKit-Swift.h */,
+				A2BFA64641941C309EB99BF7 /* BombSquadVRBallisticaHost.h */,
+				5CF807AAFBD450C22C1D29EA /* BombSquadVRBallisticaHost.mm */,
+				33D9E3543734118BE4E839D7 /* ivorbisfile.h */,
+			);
+			path = BallisticaBridge;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A52700DC71C3CD1B9C380E03 /* BombSquadVR */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C28E755D6AFB01A8DB9FF473 /* Build configuration list for PBXNativeTarget "BombSquadVR" */;
+			buildPhases = (
+				AD9D4A480DDE814A5B1F3E6D /* Build Ballistica Engine */,
+				BD79B249CEFD44760095CE83 /* Build Cardboard SDK */,
+				0DC47376C19F07ECDC8B2ADE /* Sources */,
+				DE1784D36545E105C4C0C67D /* Resources */,
+				C4D012977A7E1D8614A32F31 /* Frameworks */,
+				E5A4DE36E2C6477519BAAADA /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BombSquadVR;
+			packageProductDependencies = (
+			);
+			productName = BombSquadVR;
+			productReference = 52DB73563783B9B8AAF716FB /* BombSquadVR.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9F82937236D328C78E9D6D06 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					A52700DC71C3CD1B9C380E03 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 3E3E2C8CC6C592BD838A3282 /* Build configuration list for PBXProject "BombSquadVR" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 544AF961F316B5F5919D6749;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = CDA43B5680B52F7AF3E87B6D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A52700DC71C3CD1B9C380E03 /* BombSquadVR */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DE1784D36545E105C4C0C67D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF3C4A70B424B6215E18F06D /* Assets.xcassets in Resources */,
+				CAA532749DC7B9D8F56526FE /* BallisticaResources in Resources */,
+				566B5B916A400DA754CC4912 /* LaunchScreen.storyboard in Resources */,
+				4469AA175CA9DBE4757D11CA /* sdk.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		AD9D4A480DDE814A5B1F3E6D /* Build Ballistica Engine */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Build Ballistica Engine";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -euo pipefail\n\"$PROJECT_DIR/Scripts/build_ballistica_ios_vr_engine.py\"\n";
+		};
+		BD79B249CEFD44760095CE83 /* Build Cardboard SDK */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Build Cardboard SDK";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -euo pipefail\nif [[ ! -d \"$PROJECT_DIR/ThirdParty/cardboard/Cardboard.xcworkspace\" \\\n   || ! -d \"$PROJECT_DIR/ThirdParty/cardboard/Pods/Protobuf-C++/src\" ]]; then\n  \"$PROJECT_DIR/Scripts/bootstrap_cardboard.sh\"\nfi\npython3 \"$PROJECT_DIR/Scripts/build_cardboard_ios.py\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0DC47376C19F07ECDC8B2ADE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFF2EA72909497F0E04A14BB /* AppDelegate.swift in Sources */,
+				305C074713AA0B02C264B915 /* BSCardboardBridge.mm in Sources */,
+				A758B8B2B2B62E4187A50209 /* BombSquadVRBallisticaHost.mm in Sources */,
+				DAEF579E95C8AC031D2B7A68 /* CardboardSession.swift in Sources */,
+				C34ABCCB0E22D63C3BC813D1 /* VRControllerBridge.swift in Sources */,
+				26888504568829540E3F20C9 /* VRGameViewController.swift in Sources */,
+				4B5EB7068EF876FF1F3B71CE /* VRPoseProvider.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		33A74683880F796B81E7F1DC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"../ballistica/build/openal-apple/artifacts\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BallisticaBridge",
+					"$(PROJECT_DIR)/../ballistica/src",
+					"$(PROJECT_DIR)/../ballistica/src/external/open_dynamics_engine-ef",
+					"$(PROJECT_DIR)/../ballistica/build/openal-apple/artifacts/include/AL",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/sdk/include",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/proto",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/third_party/unity_plugin_api",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/Pods/Headers/Public",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/Pods/Headers/Public/Protobuf-C++",
+				);
+				"HEADER_SEARCH_PATHS[sdk=iphoneos*]" = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BallisticaBridge",
+					"$(PROJECT_DIR)/../ballistica/src",
+					"$(PROJECT_DIR)/../ballistica/src/external/open_dynamics_engine-ef",
+					"$(PROJECT_DIR)/../ballistica/build/python_apple_iphoneos_arm64/include",
+					"$(PROJECT_DIR)/../ballistica/build/openal-apple/artifacts/include/AL",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/sdk/include",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/proto",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/third_party/unity_plugin_api",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/Pods/Headers/Public",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/Pods/Headers/Public/Protobuf-C++",
+				);
+				"HEADER_SEARCH_PATHS[sdk=iphonesimulator*]" = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BallisticaBridge",
+					"$(PROJECT_DIR)/../ballistica/src",
+					"$(PROJECT_DIR)/../ballistica/src/external/open_dynamics_engine-ef",
+					"$(PROJECT_DIR)/../ballistica/build/python_apple_iphonesimulator_arm64/include",
+					"$(PROJECT_DIR)/../ballistica/build/openal-apple/artifacts/include/AL",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/sdk/include",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/proto",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/third_party/unity_plugin_api",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/Pods/Headers/Public",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/Pods/Headers/Public/Protobuf-C++",
+				);
+				INFOPLIST_FILE = App/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Build/Cardboard/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(PROJECT_DIR)/Build/Cardboard/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Protobuf-C++",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/../ballistica/build/ios_vr_native/iphoneos-arm64",
+					"$(PROJECT_DIR)/../ballistica/build/ios_vr_plus/iphoneos-arm64",
+					"$(PROJECT_DIR)/../ballistica/build/python_apple_iphoneos_arm64",
+					"$(PROJECT_DIR)/Build/Cardboard/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(PROJECT_DIR)/Build/Cardboard/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Protobuf-C++",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/../ballistica/build/ios_vr_native/iphonesimulator-arm64",
+					"$(PROJECT_DIR)/../ballistica/build/ios_vr_plus/iphonesimulator-arm64",
+					"$(PROJECT_DIR)/../ballistica/build/python_apple_iphonesimulator_arm64",
+					"$(PROJECT_DIR)/Build/Cardboard/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(PROJECT_DIR)/Build/Cardboard/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Protobuf-C++",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lballistica_ios_vr",
+					"-lballisticaplus_ios",
+					"-lpython_merged",
+					"-lz",
+					"-lsqlite3",
+					"-liconv",
+					"$(PROJECT_DIR)/Build/Cardboard/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/GfxPluginCardboard.a",
+					"-lProtobuf-C++",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.froemling.bombsquad.vr.prototype;
+				PRODUCT_NAME = BombSquadVR;
+				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "App/BombSquadVR-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4E79C98FB58B48E30E01E5CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"../ballistica/build/openal-apple/artifacts\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BallisticaBridge",
+					"$(PROJECT_DIR)/../ballistica/src",
+					"$(PROJECT_DIR)/../ballistica/src/external/open_dynamics_engine-ef",
+					"$(PROJECT_DIR)/../ballistica/build/openal-apple/artifacts/include/AL",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/sdk/include",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/proto",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/third_party/unity_plugin_api",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/Pods/Headers/Public",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/Pods/Headers/Public/Protobuf-C++",
+				);
+				"HEADER_SEARCH_PATHS[sdk=iphoneos*]" = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BallisticaBridge",
+					"$(PROJECT_DIR)/../ballistica/src",
+					"$(PROJECT_DIR)/../ballistica/src/external/open_dynamics_engine-ef",
+					"$(PROJECT_DIR)/../ballistica/build/python_apple_iphoneos_arm64/include",
+					"$(PROJECT_DIR)/../ballistica/build/openal-apple/artifacts/include/AL",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/sdk/include",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/proto",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/third_party/unity_plugin_api",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/Pods/Headers/Public",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/Pods/Headers/Public/Protobuf-C++",
+				);
+				"HEADER_SEARCH_PATHS[sdk=iphonesimulator*]" = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BallisticaBridge",
+					"$(PROJECT_DIR)/../ballistica/src",
+					"$(PROJECT_DIR)/../ballistica/src/external/open_dynamics_engine-ef",
+					"$(PROJECT_DIR)/../ballistica/build/python_apple_iphonesimulator_arm64/include",
+					"$(PROJECT_DIR)/../ballistica/build/openal-apple/artifacts/include/AL",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/sdk/include",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/proto",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/third_party/unity_plugin_api",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/Pods/Headers/Public",
+					"$(PROJECT_DIR)/ThirdParty/cardboard/Pods/Headers/Public/Protobuf-C++",
+				);
+				INFOPLIST_FILE = App/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Build/Cardboard/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(PROJECT_DIR)/Build/Cardboard/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Protobuf-C++",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/../ballistica/build/ios_vr_native/iphoneos-arm64",
+					"$(PROJECT_DIR)/../ballistica/build/ios_vr_plus/iphoneos-arm64",
+					"$(PROJECT_DIR)/../ballistica/build/python_apple_iphoneos_arm64",
+					"$(PROJECT_DIR)/Build/Cardboard/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(PROJECT_DIR)/Build/Cardboard/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Protobuf-C++",
+				);
+				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/../ballistica/build/ios_vr_native/iphonesimulator-arm64",
+					"$(PROJECT_DIR)/../ballistica/build/ios_vr_plus/iphonesimulator-arm64",
+					"$(PROJECT_DIR)/../ballistica/build/python_apple_iphonesimulator_arm64",
+					"$(PROJECT_DIR)/Build/Cardboard/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					"$(PROJECT_DIR)/Build/Cardboard/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Protobuf-C++",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lballistica_ios_vr",
+					"-lballisticaplus_ios",
+					"-lpython_merged",
+					"-lz",
+					"-lsqlite3",
+					"-liconv",
+					"$(PROJECT_DIR)/Build/Cardboard/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/GfxPluginCardboard.a",
+					"-lProtobuf-C++",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.froemling.bombsquad.vr.prototype;
+				PRODUCT_NAME = BombSquadVR;
+				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "App/BombSquadVR-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		87B8CE68D9BA718F4BF258DE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BOMBSQUADVR_DISPLAY_NAME = "BombSquad VR";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++23";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"GLES_SILENCE_DEPRECATION=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		EBC9904EE42109AA1979DE94 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BOMBSQUADVR_DISPLAY_NAME = "BombSquad VR";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++23";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"GLES_SILENCE_DEPRECATION=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3E3E2C8CC6C592BD838A3282 /* Build configuration list for PBXProject "BombSquadVR" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				87B8CE68D9BA718F4BF258DE /* Debug */,
+				EBC9904EE42109AA1979DE94 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C28E755D6AFB01A8DB9FF473 /* Build configuration list for PBXNativeTarget "BombSquadVR" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				33A74683880F796B81E7F1DC /* Debug */,
+				4E79C98FB58B48E30E01E5CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9F82937236D328C78E9D6D06 /* Project object */;
+}

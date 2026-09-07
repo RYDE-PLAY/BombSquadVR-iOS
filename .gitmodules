@@ -1,0 +1,4 @@
+[submodule "ballistica"]
+	path = ballistica
+	url = https://github.com/RYDE-PLAY/ballistica.git
+	branch = bombsquadvr-ios-vr

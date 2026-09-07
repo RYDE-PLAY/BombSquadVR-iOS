@@ -1,0 +1,9 @@
+ThirdParty/cardboard/
+Reverse/
+Build/
+BallisticaResources/
+DerivedData/
+__pycache__/
+*.py[cod]
+*.xcuserstate
+xcuserdata/
