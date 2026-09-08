@@ -85,6 +85,15 @@ xcodebuild \
 Use your own Apple Team and a unique Bundle ID. Do not commit certificates,
 private keys or provisioning profiles.
 
+Before running the commands:
+
+- `DEVICE_UDID`: connect and trust the iPhone, then copy its Identifier from
+  `xcrun devicectl list devices` or Xcode's **Window > Devices and Simulators**.
+- `TEAM_ID`: add your Apple ID in **Xcode > Settings > Accounts**, select your
+  Team, and copy its Team ID. Enable **Automatically manage signing** for the target.
+- `BUNDLE_ID`: choose a unique reverse-DNS-style identifier such as
+  `com.yourname.bombsquadvr.ios`; do not reuse the official app's identifier.
+
 ~~~sh
 cd BombSquadVR
 
