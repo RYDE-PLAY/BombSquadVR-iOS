@@ -34,7 +34,7 @@ command-line tools and build dependencies:
 
 ~~~sh
 xcode-select --install
-brew install python@3.14 uv xcodegen cocoapods
+brew install rsync clang-format python@3.14 uv xcodegen cocoapods
 ~~~
 
 Required tools: Python 3.14, uv, XcodeGen 2.45.0+, CocoaPods, make, rsync and
