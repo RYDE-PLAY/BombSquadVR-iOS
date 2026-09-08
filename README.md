@@ -29,8 +29,10 @@ git submodule update --init --recursive
 
 ## 2. Install prerequisites
 
-Install [Xcode](https://developer-mdn.apple.com/download/applications/) with the iOS 16 SDK and accept its license. Then install the
-command-line tools and build dependencies:
+This build requires macOS 26 or later. Install
+[Xcode](https://developer-mdn.apple.com/download/applications/) with the iOS 16
+SDK and accept its license. Then install the command-line tools and build
+dependencies:
 
 ~~~sh
 xcode-select --install
@@ -131,4 +133,4 @@ an app. Never commit BallisticaResources/, downloaded Plus binaries,
 generated build output or signing material.
 
 For Ballistica-wide build information, see the
-[README at the pinned Ballistica fork commit](https://github.com/RYDE-PLAY/ballistica/blob/2ff3b4a190ef338c4cd4cdfd6c182866ffb285a1/README.md).
+[README at the pinned Ballistica fork commit](https://github.com/RYDE-PLAY/ballistica/blob/291baf83513a2138adec7e2243a2ba6c49d61800/README.md).
