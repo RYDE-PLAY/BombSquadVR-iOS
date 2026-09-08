@@ -29,7 +29,7 @@ git submodule update --init --recursive
 
 ## 2. Install prerequisites
 
-Install Xcode with the iOS 16 SDK and accept its license. Then install the
+Install [Xcode](https://developer-mdn.apple.com/download/applications/) with the iOS 16 SDK and accept its license. Then install the
 command-line tools and build dependencies:
 
 ~~~sh
