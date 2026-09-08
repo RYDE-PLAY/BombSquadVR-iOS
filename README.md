@@ -121,5 +121,5 @@ Keep the upstream licenses and notices. See
 an app. Never commit BallisticaResources/, downloaded Plus binaries,
 generated build output or signing material.
 
-For Ballistica-wide build information, see
-[ballistica/README.md](ballistica/README.md).
+For Ballistica-wide build information, see the
+[README at the pinned Ballistica fork commit](https://github.com/RYDE-PLAY/ballistica/blob/2ff3b4a190ef338c4cd4cdfd6c182866ffb285a1/README.md).
