@@ -22,7 +22,7 @@ Clone the project repository. The command creates a local directory named
 `BombSquadVR-iOS`; you do not need to create a GitHub repository of your own.
 
 ~~~sh
-git clone --recurse-submodules https://github.com/RYDE-PLAY/BombSquadVR-iOS.git BombSquadVR-iOS
+git clone --recurse-submodules https://github.com/RYDE-PLAY/BombSquadVR-iOS.git
 cd BombSquadVR-iOS
 git submodule update --init --recursive
 ~~~
