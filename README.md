@@ -8,6 +8,14 @@ included. Developers must generate or obtain those inputs themselves and must
 have permission to use them. This project is not an official BombSquad,
 Ballistica, Google Cardboard or Apple product.
 
+## Preview
+
+Main menu running on an iPhone 17:
+
+![BombSquadVR main menu](screenshot.png)
+
+[Watch a short Cardboard viewer demo](cardboard.mp4)
+
 ## Repository layout
 
 ~~~text
