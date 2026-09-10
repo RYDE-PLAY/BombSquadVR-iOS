@@ -14,7 +14,9 @@ Main menu running on an iPhone 17:
 
 ![BombSquadVR main menu](screenshot.png)
 
-[Watch a short Cardboard viewer demo](cardboard.mp4)
+Cardboard viewer demo:
+
+![Cardboard viewer demo](cardboard.gif)
 
 ## Repository layout
 
