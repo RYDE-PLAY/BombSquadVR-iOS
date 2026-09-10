@@ -12,11 +12,11 @@ Ballistica, Google Cardboard or Apple product.
 
 Main menu running on an iPhone 17:
 
-![BombSquadVR main menu](screenshot.png)
+<img src="screenshot.png" alt="BombSquadVR main menu" width="700">
 
 Cardboard viewer demo:
 
-![Cardboard viewer demo](cardboard.gif)
+<img src="cardboard.gif" alt="Cardboard viewer demo" width="420">
 
 ## Repository layout
 
