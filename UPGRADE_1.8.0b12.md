@@ -150,4 +150,5 @@ hardware capability probe/cache. Cardboard head tracking is separate and is
 unchanged. Signed build/install/startup logs for this revision are
 `xcode-gyro-contract-device.log`, `gyro-contract-install.log`, and
 `gyro-contract-runtime.log` under `BombSquadVR/Build/UpgradeLogs`.
-The user will retest on the phone before the authorized merge to main.
+On 2026-10-09, the user confirmed the gyro-contract revision has no issues
+on the phone and authorized proceeding with the merge to main.
