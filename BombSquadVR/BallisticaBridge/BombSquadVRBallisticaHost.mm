@@ -3,7 +3,6 @@
 #include "BallisticaBuildConfigIOS.h"
 
 #import <CoreGraphics/CoreGraphics.h>
-#import <CoreMotion/CoreMotion.h>
 #import <Network/Network.h>
 #import <TargetConditionals.h>
 #import <UIKit/UIKit.h>
@@ -47,7 +46,6 @@ std::string g_locale_tag{"en-US"};
 std::string g_device_name{"iPhone"};
 std::string g_device_uuid{"local-ios-vr-device"};
 std::atomic_bool g_device_haptics_supported{false};
-std::atomic_bool g_have_gyro{false};
 nw_path_monitor_t g_network_path_monitor;
 dispatch_queue_t g_network_path_monitor_queue;
 
@@ -121,19 +119,6 @@ auto DeviceHapticsSupportedOnMainThread() -> bool {
            && NSClassFromString(@"UIImpactFeedbackGenerator") != nil;
   }
   return false;
-#endif
-}
-
-auto CoreMotionGyroAvailable() -> bool {
-#if TARGET_OS_SIMULATOR
-  return false;
-#else
-  // Query capability without starting CoreMotion updates.  VRPoseProvider is
-  // the sole owner of the device-motion stream; starting another stream here
-  // would make it too easy to feed the same movement into Ballistica's tilt
-  // path and double-apply it to VR rendering.
-  CMMotionManager* motion_manager = [[CMMotionManager alloc] init];
-  return motion_manager.gyroAvailable && motion_manager.deviceMotionAvailable;
 #endif
 }
 
@@ -350,11 +335,10 @@ void UIKitFromCpp::playDeviceHaptic(int style, float intensity) {
 }
 
 auto UIKitFromCpp::haveGyro() -> bool {
-  // This is intentionally a capability query only.  The VR pose path owns
-  // CoreMotion and supplies headYaw/headPitch/headRoll directly to the stereo
-  // renderer; it does not call Input::PushGyroEvent(), so this method must not
-  // start updates or synthesize device tilt for the engine.
-  return g_have_gyro.load(std::memory_order_relaxed);
+  // The VR host does not feed gyro samples into Ballistica's Input subsystem.
+  // Cardboard head tracking consumes its motion stream independently, so it
+  // remains active even though the ordinary engine gyro path is unavailable.
+  return false;
 }
 
 auto UIKitFromCpp::haveOverlayWebBrowser() -> bool {
@@ -544,11 +528,10 @@ void UIKitPasteboardGetTextAsync(
   g_device_uuid = StringFromNSString(
       UIDevice.currentDevice.identifierForVendor.UUIDString ?: @"local-ios-vr-device");
   // startWithResourcePath is entered from viewDidLoad on the main thread.
-  // Cache UIKit/CoreMotion capabilities before Ballistica's logic thread can
-  // query them; capability accessors stay non-blocking thereafter.
+  // Cache UIKit capabilities before Ballistica's logic thread can query them;
+  // capability accessors stay non-blocking thereafter.
   g_device_haptics_supported.store(DeviceHapticsSupportedOnMainThread(),
                                     std::memory_order_relaxed);
-  g_have_gyro.store(CoreMotionGyroAvailable(), std::memory_order_relaxed);
 
   int argc = 1;
   char arg0[] = "BombSquadVR";

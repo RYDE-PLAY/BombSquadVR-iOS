@@ -11,8 +11,9 @@ Ballistica 子模块从 `291baf835` 更新到 `fdc289b97`，上游基准为 `e55
 - 上游 `app_platform.h:129` 的契约要求硬件同时向 `Input::PushGyroEvent()` 提供样本。
 - 宿主没有这条样本输入链，因此可能误报普通 gyro tilt/parallax 功能可用。
   Cardboard 的头部追踪是另一条链，不受该能力标志影响。
-- 建议 VR 宿主返回 false，或者真正补齐普通 Input gyro 数据；当前任务仅记录发现，
-  未更改已验证版本，也未重新安装。
+- 按用户授权已修复：VR 宿主的 `haveGyro()` 返回 false，并移除未使用的硬件能力缓存和探测。
+  不新增普通 Input gyro 数据链，Cardboard 的头部姿态采集与渲染保持原样。
+- 修订将重新构建并安装供用户真机复测；只有用户确认没问题后才合并到 main。
 
 ## 修改范围与影响
 
@@ -23,7 +24,7 @@ Ballistica 子模块从 `291baf835` 更新到 `fdc289b97`，上游基准为 `e55
 | Python 3.14.7 / BeeWare pin / zstd 校验 | 与上游依赖一致并保证 native packet codec 可链接 | 固定第三方源码版本；zstd 定义检查在构建期失败，避免晚到应用链接才发现缺库 |
 | Plus 缓存签名和 zstd 头路径 | 避免旧的 Plus 适配产物被复用，补齐 native 编译依赖 | 原有 Plus 平台标记改写方法仍然存在，不能由启动结果推断完整账号/联机兼容 |
 | Scene 生命周期与保留 GL 视图 | 修复 SDK 27/iOS 27 启动检查；迁移窗口与前后台事件 | 模拟器普通前后台恢复已检查；Scene 被系统断开后重新连接尚未专门验证 |
-| 六个 UIKit 桥接方法 | 补齐上游调用的触觉、gyro、浏览器接口 | 能力查询不阻塞主线程；触觉主线程执行；overlay 不支持，URL 用外部浏览器；gyro 只查询、不额外注入引擎倾斜输入 |
+| 六个 UIKit 桥接方法 | 补齐上游调用的触觉、gyro、浏览器接口 | 能力查询不阻塞主线程；触觉主线程执行；overlay 不支持，URL 用外部浏览器；普通 engine gyro 返回 false，不额外注入引擎倾斜输入 |
 | iOS VR 内置键盘覆盖 | Profile 名称、聊天等普通控件在双眼画面中编辑 | 不写入保存偏好；非 VR、其他平台与开发控制台保留原有路径；不新增系统中文输入法 |
 | yaw 符号与应用层 recenter | 修正左右方向；以当前视线设参考，消除额外 180° | 最终公式 wrap(heading-reference)；pitch/roll 未改；不重置 Cardboard 融合器，保持姿态连续 |
 | Xcode 工程、README、升级记录 | 注册 SceneDelegate/heading helper，记录依赖与结果 | 签名 team、测试 bundle ID 和构建产物未写入工程默认设置 |
@@ -43,4 +44,4 @@ Ballistica 子模块从 `291baf835` 更新到 `fdc289b97`，上游基准为 `e55
 子模块 `fdc289b97` 和父仓升级分支当前仅在本机。推送父仓之前必须先让子模块提交
 在 fork 上可获取，否则另一台机器不能按 gitlink 初始化。原 main 和原稳定 checkout 未改动。
 
-此复核不执行合并、推送或重新安装应用。
+后续 gyro 修订按用户授权安装供复测；main 合并等待用户确认，未执行推送。

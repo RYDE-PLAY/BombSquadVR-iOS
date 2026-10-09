@@ -13,11 +13,12 @@ outputs live in this separate worktree.
 - Apply the VR depth-of-field override only to the main view so new texture
   views, such as character previews, retain their authored depth-of-field settings.
 - Add the six new UIKit bridge methods for device feedback, gyro capability,
-  and optional overlay browsing. Cache capability values before engine startup;
+  and optional overlay browsing. Cache haptic capability before engine startup;
   queries from the logic thread never synchronously wait for the main thread.
 - Implement iPhone impact/notification feedback on the main thread. Simulator
-  feedback and gyro capability return false. Head pose remains owned by the
-  existing VR path; no additional engine tilt stream is started.
+  feedback returns false. Ordinary engine gyro capability returns false on all
+  VR targets because this host does not feed `Input::PushGyroEvent()`. Head pose
+  remains owned by the existing VR path; no engine tilt stream is started.
 - Report in-app browsing as unsupported and retain the existing external URL
   opening behavior. This migration does not add an embedded browser UI.
 - Pin BeeWare Python-Apple-support `3.14-b11` at
@@ -141,3 +142,12 @@ runtime or online compatibility.
 Engine commits and this integration branch are local until explicitly pushed.
 The new submodule commit must be made available in the fork before a remote
 clone can reproduce this branch's pinned checkout.
+
+## Gyro capability contract correction
+
+The VR host reports no ordinary engine gyro input and removes the unused
+hardware capability probe/cache. Cardboard head tracking is separate and is
+unchanged. Signed build/install/startup logs for this revision are
+`xcode-gyro-contract-device.log`, `gyro-contract-install.log`, and
+`gyro-contract-runtime.log` under `BombSquadVR/Build/UpgradeLogs`.
+The user will retest on the phone before the authorized merge to main.
