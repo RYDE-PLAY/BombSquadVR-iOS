@@ -54,6 +54,26 @@ Ballistica initialization. Logs: `xcode-vr-keyboard-device.log`,
 cancel behavior still require hands-on confirmation on the phone; no automated
 UI interaction was performed for this change.
 
+## Heading and recenter correction
+
+After the keyboard update, a device report identified inverted left/right
+head motion from startup (pitch and roll still worked). The keyboard commit
+only changed UI selection; comparison does not establish it as the cause of
+the heading regression. The host's previous mapping used `pi - heading`,
+which conflicts with the engine's yaw rotation convention. It now uses
+`pi + wrap(heading - reference)`, keeping the same neutral base orientation.
+
+A screen tap captures the current heading as the application reference;
+it no longer resets Cardboard's sensor-fusion filter. Pitch and roll remain
+unchanged. Startup still uses the original zero reference until a tap.
+
+The actual Swift calibration helper passed neutral, both signed heading,
+recenter, and both -pi/pi seam checks. Signed iPhone build succeeded and was
+installed on the connected phone. Device runtime logs are in
+`xcode-heading-device.log`, `heading-install.log`, and `heading-runtime.log`.
+Hands-on left/right movement and recenter validation remain pending; these
+mathematical/build checks do not establish the physical headset experience.
+
 ## Verification
 
 Completed:

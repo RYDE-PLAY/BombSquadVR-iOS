@@ -61,6 +61,7 @@ final class CardboardSession {
     private let bridge = BSCardboardBridge()
     private let predictionNanos: Int64 = 50_000_000
     private let eyeMatrixWorldScale: Float = 10.5
+    private var headingCalibration = VRHeadingCalibration()
 
     func resume() {
         bridge.resume()
@@ -71,7 +72,10 @@ final class CardboardSession {
     }
 
     func recenter() {
-        bridge.recenter()
+        // Calibrate the displayed heading directly instead of resetting the
+        // sensor fusion filter, which must continue tracking pitch and roll.
+        let forward = GLKMatrix4MultiplyVector4(currentRotation(), GLKVector4Make(0, 0, -1, 0))
+        headingCalibration.recenter(heading: atan2f(forward.x, -forward.z))
     }
 
     func scanViewerQRCode() {
@@ -121,7 +125,7 @@ final class CardboardSession {
         )
     }
 
-    private func currentHeadPose() -> VRHeadPose {
+    private func currentRotation() -> GLKMatrix4 {
         var position = [Float](repeating: 0, count: 3)
         var orientation = [Float](repeating: 0, count: 4)
         position.withUnsafeMutableBufferPointer { positionBuffer in
@@ -141,13 +145,17 @@ final class CardboardSession {
             orientation[2],
             orientation[3]
         )
-        let rotation = GLKMatrix4MakeWithQuaternion(quaternion)
+        return GLKMatrix4MakeWithQuaternion(quaternion)
+    }
+
+    private func currentHeadPose() -> VRHeadPose {
+        let rotation = currentRotation()
         let forward = GLKMatrix4MultiplyVector4(rotation, GLKVector4Make(0, 0, -1, 0))
         let up = GLKMatrix4MultiplyVector4(rotation, GLKVector4Make(0, 1, 0, 0))
         // Ballistica's VR camera applies its own 180-degree base yaw. Offset
-        // Cardboard's recentered forward vector so a tap faces the arena, and
-        // flip yaw/pitch deltas to match the engine's camera convention.
-        let yaw = Float.pi - atan2f(forward.x, -forward.z)
+        // the calibrated forward vector so a tap faces the arena. Preserve
+        // the heading delta sign; negating it reverses left/right head motion.
+        let yaw = headingCalibration.engineYaw(heading: atan2f(forward.x, -forward.z))
         let pitch = -asinf(max(-1, min(1, forward.y)))
         let roll = atan2f(up.x, up.y) + Float.pi
         return VRHeadPose(yaw: yaw, pitch: pitch, roll: roll)

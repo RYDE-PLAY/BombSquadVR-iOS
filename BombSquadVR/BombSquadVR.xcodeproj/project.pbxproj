@@ -14,6 +14,7 @@
 		4469AA175CA9DBE4757D11CA /* sdk.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A3F9716E0123F0E9B71EA4E8 /* sdk.bundle */; };
 		4B5EB7068EF876FF1F3B71CE /* VRPoseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F5C3C28EA945E5CF36A362 /* VRPoseProvider.swift */; };
 		566B5B916A400DA754CC4912 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A27B13F97FCF70C7FB52E72 /* LaunchScreen.storyboard */; };
+		64D445113127C140BD59C87F /* VRHeadingCalibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0AD95CA3A33A6B1DCD4659E /* VRHeadingCalibration.swift */; };
 		79BA96ABF112FB81B1DE4E6C /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C089F08CDD435BC86D11AAE6 /* Network.framework */; };
 		7E181732A9DEF5FEBD6B24D8 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A05730A316276CF171AE29C2 /* GLKit.framework */; };
 		7E75B6102697E46F757EB4F5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3990CEE0F97391EF2C0958B5 /* QuartzCore.framework */; };
@@ -81,6 +82,7 @@
 		CA55A31184AC233F36D97D5F /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		D5419268A6208080BF5A7833 /* BSCardboardBridge.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BSCardboardBridge.mm; sourceTree = "<group>"; };
 		DAF786D72086CD0E4FA3EC46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		E0AD95CA3A33A6B1DCD4659E /* VRHeadingCalibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VRHeadingCalibration.swift; sourceTree = "<group>"; };
 		E4274EF9396EDBDB38F41F6A /* VRControllerBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VRControllerBridge.swift; sourceTree = "<group>"; };
 		EDE483CAB2326874DED3C3BB /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -176,6 +178,7 @@
 				1AD6F2124A77C2C143AEDA15 /* SceneDelegate.swift */,
 				E4274EF9396EDBDB38F41F6A /* VRControllerBridge.swift */,
 				4ED568CF6D98E474151413DA /* VRGameViewController.swift */,
+				E0AD95CA3A33A6B1DCD4659E /* VRHeadingCalibration.swift */,
 				68F5C3C28EA945E5CF36A362 /* VRPoseProvider.swift */,
 			);
 			path = App;
@@ -347,6 +350,7 @@
 				A686F56188DFD3ED200650BD /* SceneDelegate.swift in Sources */,
 				C34ABCCB0E22D63C3BC813D1 /* VRControllerBridge.swift in Sources */,
 				26888504568829540E3F20C9 /* VRGameViewController.swift in Sources */,
+				64D445113127C140BD59C87F /* VRHeadingCalibration.swift in Sources */,
 				4B5EB7068EF876FF1F3B71CE /* VRPoseProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
