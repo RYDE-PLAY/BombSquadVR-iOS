@@ -10,7 +10,7 @@ struct VRHeadingCalibration {
     func engineYaw(heading: Float) -> Float {
         let delta = heading - reference
         // Keep heading continuous across the sensor's -pi/pi seam. Ballistica
-        // adds its own pi base rotation; pi here keeps neutral facing the arena.
-        return Float.pi + atan2f(sinf(delta), cosf(delta))
+        // applies its own pi base rotation, so recenter returns zero here.
+        return atan2f(sinf(delta), cosf(delta))
     }
 }

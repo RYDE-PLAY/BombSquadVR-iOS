@@ -61,7 +61,9 @@ head motion from startup (pitch and roll still worked). The keyboard commit
 only changed UI selection; comparison does not establish it as the cause of
 the heading regression. The host's previous mapping used `pi - heading`,
 which conflicts with the engine's yaw rotation convention. It now uses
-`pi + wrap(heading - reference)`, keeping the same neutral base orientation.
+`wrap(heading - reference)`, so recenter sends zero yaw to the engine.
+The engine already applies a 180-degree base rotation. Adding another pi in
+the host caused the reported recenter-to-the-back behavior and was removed.
 
 A screen tap captures the current heading as the application reference;
 it no longer resets Cardboard's sensor-fusion filter. Pitch and roll remain
@@ -71,8 +73,12 @@ The actual Swift calibration helper passed neutral, both signed heading,
 recenter, and both -pi/pi seam checks. Signed iPhone build succeeded and was
 installed on the connected phone. Device runtime logs are in
 `xcode-heading-device.log`, `heading-install.log`, and `heading-runtime.log`.
-Hands-on left/right movement and recenter validation remain pending; these
-mathematical/build checks do not establish the physical headset experience.
+A follow-up device build/install checks the zero-yaw recenter correction;
+logs are `xcode-recenter-zero-device.log`, `recenter-zero-install.log`, and
+`recenter-zero-runtime.log`. The calibration check now explicitly requires
+zero after recenter (rather than pi), preserving the sign of further turns.
+Hands-on recenter validation remains pending; mathematical/build checks do
+not establish the physical headset experience.
 
 ## Verification
 

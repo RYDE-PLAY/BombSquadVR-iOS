@@ -152,9 +152,9 @@ final class CardboardSession {
         let rotation = currentRotation()
         let forward = GLKMatrix4MultiplyVector4(rotation, GLKVector4Make(0, 0, -1, 0))
         let up = GLKMatrix4MultiplyVector4(rotation, GLKVector4Make(0, 1, 0, 0))
-        // Ballistica's VR camera applies its own 180-degree base yaw. Offset
-        // the calibrated forward vector so a tap faces the arena. Preserve
-        // the heading delta sign; negating it reverses left/right head motion.
+        // Ballistica applies its own 180-degree base yaw. Pass only the
+        // calibrated heading delta; an extra pi would face away after a tap.
+        // Preserve its sign so left/right head motion is not reversed.
         let yaw = headingCalibration.engineYaw(heading: atan2f(forward.x, -forward.z))
         let pitch = -asinf(max(-1, min(1, forward.y)))
         let roll = atan2f(up.x, up.y) + Float.pi
