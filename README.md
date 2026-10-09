@@ -3,6 +3,10 @@
 Unofficial online iOS Cardboard VR integration based on the Ballistica engine.
 This repository contains the integration code and build scripts.
 
+This upgrade branch integrates Ballistica 1.8.0b12 (build 23040) and pins
+Python 3.14.7. See [upgrade notes](UPGRADE_1.8.0b12.md) for migration details
+and the verification status.
+
 BallisticaResources/, the Ballistica Plus library and IPA files are not
 included. Developers must generate or obtain those inputs themselves and must
 have permission to use them. This project is not an official BombSquad,
@@ -40,8 +44,8 @@ git submodule update --init --recursive
 ## 2. Install prerequisites
 
 This build requires macOS 26 or later. Install
-[Xcode](https://developer-mdn.apple.com/download/applications/) with the iOS 16
-SDK and accept its license. Then install the command-line tools and build
+[Xcode](https://developer-mdn.apple.com/download/applications/) and accept its
+license. The app deployment target is iOS 16.0. Then install the command-line tools and build
 dependencies:
 
 ~~~sh
@@ -143,4 +147,4 @@ an app. Never commit BallisticaResources/, downloaded Plus binaries,
 generated build output or signing material.
 
 For Ballistica-wide build information, see the
-[README at the pinned Ballistica fork commit](https://github.com/RYDE-PLAY/ballistica/blob/291baf83513a2138adec7e2243a2ba6c49d61800/README.md).
+[README at this integration's upstream base](https://github.com/efroemling/ballistica/blob/e55b28ad08c9597dc029b197a086b8a23f063275/README.md).

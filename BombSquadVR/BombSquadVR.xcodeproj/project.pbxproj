@@ -18,6 +18,7 @@
 		7E181732A9DEF5FEBD6B24D8 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A05730A316276CF171AE29C2 /* GLKit.framework */; };
 		7E75B6102697E46F757EB4F5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3990CEE0F97391EF2C0958B5 /* QuartzCore.framework */; };
 		9A4E6C31A9637B35D5F6E7B7 /* OpenALSoft.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 575BE55615076EF2BC4683FF /* OpenALSoft.xcframework */; };
+		A686F56188DFD3ED200650BD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD6F2124A77C2C143AEDA15 /* SceneDelegate.swift */; };
 		A758B8B2B2B62E4187A50209 /* BombSquadVRBallisticaHost.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5CF807AAFBD450C22C1D29EA /* BombSquadVRBallisticaHost.mm */; };
 		BF3C4A70B424B6215E18F06D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76CE3633EF528CCFF12DF219 /* Assets.xcassets */; };
 		C34ABCCB0E22D63C3BC813D1 /* VRControllerBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4274EF9396EDBDB38F41F6A /* VRControllerBridge.swift */; };
@@ -49,6 +50,7 @@
 
 /* Begin PBXFileReference section */
 		0A27B13F97FCF70C7FB52E72 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		1AD6F2124A77C2C143AEDA15 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		2FB062437E762239B82C30D9 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		33D9E3543734118BE4E839D7 /* ivorbisfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ivorbisfile.h; sourceTree = "<group>"; };
 		38BB7D9C192FC6F7B615FCD7 /* BallisticaBuildConfigIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BallisticaBuildConfigIOS.h; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				5D4D0829D1F78E87A29F9A12 /* CardboardSession.swift */,
 				DAF786D72086CD0E4FA3EC46 /* Info.plist */,
 				0A27B13F97FCF70C7FB52E72 /* LaunchScreen.storyboard */,
+				1AD6F2124A77C2C143AEDA15 /* SceneDelegate.swift */,
 				E4274EF9396EDBDB38F41F6A /* VRControllerBridge.swift */,
 				4ED568CF6D98E474151413DA /* VRGameViewController.swift */,
 				68F5C3C28EA945E5CF36A362 /* VRPoseProvider.swift */,
@@ -341,6 +344,7 @@
 				305C074713AA0B02C264B915 /* BSCardboardBridge.mm in Sources */,
 				A758B8B2B2B62E4187A50209 /* BombSquadVRBallisticaHost.mm in Sources */,
 				DAEF579E95C8AC031D2B7A68 /* CardboardSession.swift in Sources */,
+				A686F56188DFD3ED200650BD /* SceneDelegate.swift in Sources */,
 				C34ABCCB0E22D63C3BC813D1 /* VRControllerBridge.swift in Sources */,
 				26888504568829540E3F20C9 /* VRGameViewController.swift in Sources */,
 				4B5EB7068EF876FF1F3B71CE /* VRPoseProvider.swift in Sources */,

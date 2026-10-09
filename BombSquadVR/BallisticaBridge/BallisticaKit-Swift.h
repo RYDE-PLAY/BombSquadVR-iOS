@@ -87,7 +87,16 @@ class UIKitFromCpp {
   static auto getDeviceName() -> const char*;
   static auto getLegacyDeviceUUID() -> const char*;
   static auto isTablet() -> bool;
+  static auto deviceHapticsSupported() -> bool;
+  static void playDeviceHaptic(int style, float intensity);
+  // This reports CoreMotion capability only.  The VR host consumes device
+  // motion separately for its head pose and does not feed tilt samples into
+  // Ballistica's Input subsystem.
+  static auto haveGyro() -> bool;
+  static auto haveOverlayWebBrowser() -> bool;
   static void openURL(const std::string& url);
+  static void openURLInOverlayWebBrowser(const std::string& url);
+  static void closeOverlayWebBrowser();
   static void invokeStringEditor(const std::string& title,
                                  const std::string& value, int max_chars,
                                  bool is_password, const std::string& kind);

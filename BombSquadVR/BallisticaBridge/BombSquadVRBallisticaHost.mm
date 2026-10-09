@@ -3,11 +3,13 @@
 #include "BallisticaBuildConfigIOS.h"
 
 #import <CoreGraphics/CoreGraphics.h>
+#import <CoreMotion/CoreMotion.h>
 #import <Network/Network.h>
 #import <TargetConditionals.h>
 #import <UIKit/UIKit.h>
 
 #include <algorithm>
+#include <atomic>
 #include <cmath>
 #include <memory>
 #include <optional>
@@ -44,6 +46,8 @@ std::string g_locale{"en"};
 std::string g_locale_tag{"en-US"};
 std::string g_device_name{"iPhone"};
 std::string g_device_uuid{"local-ios-vr-device"};
+std::atomic_bool g_device_haptics_supported{false};
+std::atomic_bool g_have_gyro{false};
 nw_path_monitor_t g_network_path_monitor;
 dispatch_queue_t g_network_path_monitor_queue;
 
@@ -77,7 +81,15 @@ auto TextFont(CGFloat scale) -> UIFont* {
 
 auto PresentingViewController() -> UIViewController* {
   UIWindow* window = nil;
-  for (UIWindow* candidate in UIApplication.sharedApplication.windows) {
+  NSMutableArray<UIWindow*>* windows = [NSMutableArray array];
+  for (UIScene* scene in UIApplication.sharedApplication.connectedScenes) {
+    if ([scene isKindOfClass:UIWindowScene.class]
+        && (scene.activationState == UISceneActivationStateForegroundActive
+            || scene.activationState == UISceneActivationStateForegroundInactive)) {
+      [windows addObjectsFromArray:((UIWindowScene*)scene).windows];
+    }
+  }
+  for (UIWindow* candidate in windows) {
     if (candidate.isKeyWindow) {
       window = candidate;
       break;
@@ -95,6 +107,83 @@ auto PresentingViewController() -> UIViewController* {
     controller = controller.presentedViewController;
   }
   return controller;
+}
+
+auto DeviceHapticsSupportedOnMainThread() -> bool {
+#if TARGET_OS_SIMULATOR
+  return false;
+#else
+  if (@available(iOS 10.0, *)) {
+    // UIKit feedback generators are present on iOS devices without a Taptic
+    // Engine too, where they simply do nothing.  The VR target is phone-only;
+    // keep the capability answer conservative for iPads and older hardware.
+    return UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPhone
+           && NSClassFromString(@"UIImpactFeedbackGenerator") != nil;
+  }
+  return false;
+#endif
+}
+
+auto CoreMotionGyroAvailable() -> bool {
+#if TARGET_OS_SIMULATOR
+  return false;
+#else
+  // Query capability without starting CoreMotion updates.  VRPoseProvider is
+  // the sole owner of the device-motion stream; starting another stream here
+  // would make it too easy to feed the same movement into Ballistica's tilt
+  // path and double-apply it to VR rendering.
+  CMMotionManager* motion_manager = [[CMMotionManager alloc] init];
+  return motion_manager.gyroAvailable && motion_manager.deviceMotionAvailable;
+#endif
+}
+
+void PlayDeviceHapticOnMainThread(int style, float intensity) {
+  if (!DeviceHapticsSupportedOnMainThread()) {
+    return;
+  }
+
+  intensity = std::clamp(intensity, 0.0f, 1.0f);
+
+  // Style 5 is the multi-beat notification pattern used for a death event.
+  if (style == 5) {
+    UINotificationFeedbackGenerator* generator =
+        [[UINotificationFeedbackGenerator alloc] init];
+    [generator prepare];
+    [generator notificationOccurred:UINotificationFeedbackTypeError];
+    return;
+  }
+
+  UIImpactFeedbackStyle feedback_style;
+  switch (style) {
+    case 0:
+      feedback_style = UIImpactFeedbackStyleLight;
+      break;
+    case 1:
+      feedback_style = UIImpactFeedbackStyleMedium;
+      break;
+    case 2:
+      feedback_style = UIImpactFeedbackStyleHeavy;
+      break;
+    case 4:
+      if (@available(iOS 13.0, *)) {
+        feedback_style = UIImpactFeedbackStyleRigid;
+      } else {
+        feedback_style = UIImpactFeedbackStyleHeavy;
+      }
+      break;
+    default:
+      feedback_style = UIImpactFeedbackStyleMedium;
+      break;
+  }
+
+  UIImpactFeedbackGenerator* generator =
+      [[UIImpactFeedbackGenerator alloc] initWithStyle:feedback_style];
+  [generator prepare];
+  if (@available(iOS 13.0, *)) {
+    [generator impactOccurredWithIntensity:intensity];
+  } else {
+    [generator impactOccurred];
+  }
 }
 
 auto EyeParamsFromArray(const float* values, int eye, int viewport_x,
@@ -241,6 +330,40 @@ auto UIKitFromCpp::isTablet() -> bool {
   return UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad;
 }
 
+auto UIKitFromCpp::deviceHapticsSupported() -> bool {
+  // Cached while the host is started on the main thread.  This method can be
+  // called from Ballistica's logic thread while the main thread is waiting for
+  // a frame, so it must never synchronously hop to UIKit's queue here.
+  return g_device_haptics_supported.load(std::memory_order_relaxed);
+}
+
+void UIKitFromCpp::playDeviceHaptic(int style, float intensity) {
+  // The upstream Apple adapter normally calls this through its main-thread
+  // queue, but keep the bridge safe for any direct callers as well.
+  if (NSThread.isMainThread) {
+    PlayDeviceHapticOnMainThread(style, intensity);
+  } else {
+    dispatch_async(dispatch_get_main_queue(), ^{
+      PlayDeviceHapticOnMainThread(style, intensity);
+    });
+  }
+}
+
+auto UIKitFromCpp::haveGyro() -> bool {
+  // This is intentionally a capability query only.  The VR pose path owns
+  // CoreMotion and supplies headYaw/headPitch/headRoll directly to the stereo
+  // renderer; it does not call Input::PushGyroEvent(), so this method must not
+  // start updates or synthesize device tilt for the engine.
+  return g_have_gyro.load(std::memory_order_relaxed);
+}
+
+auto UIKitFromCpp::haveOverlayWebBrowser() -> bool {
+  // The VR host has no in-app Safari container or lifecycle hook for an
+  // overlay controller.  Report that honestly; callers can still use the
+  // regular URL path below to leave the game and open Safari.
+  return false;
+}
+
 void UIKitFromCpp::openURL(const std::string& url) {
   NSString* value = NSStringFromString(url);
   NSURL* ns_url = [NSURL URLWithString:value];
@@ -252,6 +375,13 @@ void UIKitFromCpp::openURL(const std::string& url) {
     });
   }
 }
+
+void UIKitFromCpp::openURLInOverlayWebBrowser(const std::string& url) {
+  // Preserve URL behavior for callers that request the optional overlay.
+  openURL(url);
+}
+
+void UIKitFromCpp::closeOverlayWebBrowser() {}
 
 void PushStringEditorResult(std::optional<std::string> value, bool submit) {
   if (ballistica::base::g_base == nullptr
@@ -413,6 +543,12 @@ void UIKitPasteboardGetTextAsync(
   g_locale = StringFromNSString(NSLocale.preferredLanguages.firstObject ?: @"en");
   g_device_uuid = StringFromNSString(
       UIDevice.currentDevice.identifierForVendor.UUIDString ?: @"local-ios-vr-device");
+  // startWithResourcePath is entered from viewDidLoad on the main thread.
+  // Cache UIKit/CoreMotion capabilities before Ballistica's logic thread can
+  // query them; capability accessors stay non-blocking thereafter.
+  g_device_haptics_supported.store(DeviceHapticsSupportedOnMainThread(),
+                                    std::memory_order_relaxed);
+  g_have_gyro.store(CoreMotionGyroAvailable(), std::memory_order_relaxed);
 
   int argc = 1;
   char arg0[] = "BombSquadVR";

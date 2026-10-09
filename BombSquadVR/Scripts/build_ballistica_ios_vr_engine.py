@@ -21,6 +21,7 @@ APP_ROOT = Path(__file__).resolve().parents[1]
 WORKSPACE_ROOT = APP_ROOT.parent
 BALLISTICA_ROOT = WORKSPACE_ROOT / "ballistica"
 BALLISTICA_SRC = BALLISTICA_ROOT / "src"
+ZSTD_INCLUDE_ROOT = BALLISTICA_SRC / "external" / "zstd" / "include"
 BRIDGE_ROOT = APP_ROOT / "BallisticaBridge"
 RAW_SDK_NAME = os.environ.get("SDK_NAME") or os.environ.get("PLATFORM_NAME", "")
 APPLE_SDK_NAME = "iphoneos" if RAW_SDK_NAME.startswith("iphoneos") else "iphonesimulator"
@@ -38,6 +39,8 @@ PLUS_BUILD_ROOT = (
     BALLISTICA_ROOT / "build" / "ios_vr_plus" / f"{APPLE_SDK_NAME}-arm64"
 )
 PLUS_LIB_PATH = PLUS_BUILD_ROOT / "libballisticaplus_ios.a"
+PLUS_STAMP_PATH = PLUS_BUILD_ROOT / "adaptation-stamp.txt"
+PLUS_ADAPTATION_VERSION = "ios-vr-plus-adaptation-v2"
 EFROCACHE_MAP = BALLISTICA_ROOT / ".efrocachemap"
 PROJECT_CONFIG = BALLISTICA_ROOT / "pconfig" / "projectconfig.json"
 CONFIG_HEADER = BRIDGE_ROOT / "BallisticaBuildConfigIOS.h"
@@ -187,7 +190,7 @@ def _atomic_write(path: Path, data: bytes) -> None:
     os.replace(tmp_path, path)
 
 
-def _ensure_private_plus_source() -> None:
+def _ensure_private_plus_source() -> str:
     cache_map = json.loads(EFROCACHE_MAP.read_text(encoding="utf-8"))
     cache_key = PLUS_SOURCE_RELATIVE.as_posix()
     expected_hash = cache_map.get(cache_key)
@@ -201,7 +204,7 @@ def _ensure_private_plus_source() -> None:
             prefix + PLUS_SOURCE_PATH.read_bytes(), usedforsecurity=False
         ).hexdigest()
         if actual_hash == expected_hash:
-            return
+            return expected_hash
         PLUS_SOURCE_PATH.unlink()
 
     hash_subpath = "/".join(
@@ -249,24 +252,35 @@ def _ensure_private_plus_source() -> None:
             f"got {actual_hash}"
         )
     _atomic_write(PLUS_SOURCE_PATH, source_data)
+    return expected_hash
 
 
 def _prepare_private_plus() -> None:
-    _ensure_private_plus_source()
+    source_hash = _ensure_private_plus_source()
+    sdk_version = _run(
+        ["xcrun", "--sdk", APPLE_SDK_NAME, "--show-sdk-version"]
+    )
+    platform = "ios" if APPLE_SDK_NAME == "iphoneos" else "iossim"
+    adaptation_stamp = (
+        f"{PLUS_ADAPTATION_VERSION}\n"
+        f"source={source_hash}\n"
+        f"sdk={APPLE_SDK_NAME}\n"
+        f"sdk_version={sdk_version}\n"
+        f"platform={platform}\n"
+        "min_os=16.0\n"
+    )
     if (
         PLUS_LIB_PATH.exists()
+        and PLUS_STAMP_PATH.exists()
+        and PLUS_STAMP_PATH.read_text(encoding="utf-8") == adaptation_stamp
         and PLUS_LIB_PATH.stat().st_mtime >= PLUS_SOURCE_PATH.stat().st_mtime
         and PLUS_LIB_PATH.stat().st_mtime >= Path(__file__).stat().st_mtime
     ):
         return
 
-    sdk_version = _run(
-        ["xcrun", "--sdk", APPLE_SDK_NAME, "--show-sdk-version"]
-    )
     ar = _run(["xcrun", "--sdk", APPLE_SDK_NAME, "--find", "ar"])
     libtool = _run(["xcrun", "--sdk", APPLE_SDK_NAME, "--find", "libtool"])
     vtool = _run(["xcrun", "--find", "vtool"])
-    platform = "ios" if APPLE_SDK_NAME == "iphoneos" else "iossim"
 
     PLUS_BUILD_ROOT.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(
@@ -309,6 +323,7 @@ def _prepare_private_plus() -> None:
             + [str(path) for path in adapted_objects]
         )
         os.replace(temp_library, PLUS_LIB_PATH)
+    _atomic_write(PLUS_STAMP_PATH, adaptation_stamp.encode())
 
 
 def _extract_cmake_block(start_re: str) -> list[str]:
@@ -420,6 +435,12 @@ def main() -> int:
     if not CMAKE_FILE.exists():
         print(f"Missing Ballistica checkout at {BALLISTICA_ROOT}", file=os.sys.stderr)
         return 1
+    if not (ZSTD_INCLUDE_ROOT / "zstd.h").is_file():
+        print(
+            f"Missing vendored zstd headers at {ZSTD_INCLUDE_ROOT}.",
+            file=os.sys.stderr,
+        )
+        return 1
     if not (PYTHON_ROOT / "include" / "Python.h").exists():
         print(
             f"Missing {APPLE_SDK_NAME} Python headers. Run "
@@ -465,6 +486,11 @@ def main() -> int:
         str(BALLISTICA_SRC),
         "-I",
         str(BALLISTICA_SRC / "external" / "open_dynamics_engine-ef"),
+        # The 1.8.x scene packet codec uses the vendored zstd headers.  Keep
+        # this include root alongside the other source-tree dependencies so
+        # the hand-written iOS build sees the same headers as CMake builds.
+        "-I",
+        str(ZSTD_INCLUDE_ROOT),
         "-I",
         str(PYTHON_ROOT / "include"),
         "-I",

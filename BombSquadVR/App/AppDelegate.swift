@@ -3,18 +3,16 @@ import AVFoundation
 
 @main
 final class AppDelegate: UIResponder, UIApplicationDelegate {
-    var window: UIWindow?
+    // The engine is process-wide. Keep its view and GL context alive when
+    // UIKit disconnects and later reconnects the application's single scene.
+    lazy var gameViewController = VRGameViewController()
 
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         application.isIdleTimerDisabled = true
-        activateAudioSession()
-        let window = UIWindow(frame: UIScreen.main.bounds)
-        window.rootViewController = VRGameViewController()
-        window.makeKeyAndVisible()
-        self.window = window
+        Self.activateAudioSession()
         return true
     }
 
@@ -25,28 +23,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         .landscapeRight
     }
 
-    func applicationWillResignActive(_ application: UIApplication) {
-        let viewController = window?.rootViewController as? VRGameViewController
-        viewController?.pauseRendering()
-        BombSquadVRBallisticaHost.shared().setAppActive(false)
-    }
-
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        BombSquadVRBallisticaHost.shared().suspendApp()
-    }
-
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        BombSquadVRBallisticaHost.shared().unsuspendApp()
-    }
-
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        application.isIdleTimerDisabled = true
-        activateAudioSession()
-        BombSquadVRBallisticaHost.shared().setAppActive(true)
-        (window?.rootViewController as? VRGameViewController)?.resumeRendering()
-    }
-
-    private func activateAudioSession() {
+    static func activateAudioSession() {
         do {
             let session = AVAudioSession.sharedInstance()
             try session.setCategory(.playback, mode: .default)
