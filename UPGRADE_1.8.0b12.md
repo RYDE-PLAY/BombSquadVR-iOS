@@ -67,6 +67,17 @@ Logs and generated outputs are under
 `BombSquadVR/Build/UpgradeLogs`, `Build/UpgradeDevice`, and
 `Build/UpgradeSimulator` and are excluded from Git.
 
+## Device installation (2026-10-09)
+
+- Signed Debug build succeeded using the existing development account.
+- Installed on the connected physical iPhone 17 (iOS 27.0.1) as
+  **BombSquad VR Upgrade**, bundle ID `com.ryde.bombsquadvr.upgrade`.
+- Launch succeeded; device console confirms `BallisticaKit 1.8.0b12 build
+  23040 starting...`, and the application process remained present during the
+  initial check. Device build/install/runtime logs are in `Build/UpgradeLogs`.
+- Real-device visual, sensor, controller, and gameplay checks remain for the
+  hands-on test; installation/startup alone does not establish them.
+
 ## Remaining hardware verification
 
 Verify real iPhone startup, Cardboard QR calibration, lens distortion, head
