@@ -77,8 +77,9 @@ A follow-up device build/install checks the zero-yaw recenter correction;
 logs are `xcode-recenter-zero-device.log`, `recenter-zero-install.log`, and
 `recenter-zero-runtime.log`. The calibration check now explicitly requires
 zero after recenter (rather than pi), preserving the sign of further turns.
-Hands-on recenter validation remains pending; mathematical/build checks do
-not establish the physical headset experience.
+On 2026-10-09, the user confirmed the updated recenter behavior is normal on
+the physical iPhone. Broader hardware/gameplay checks below remain separate
+from this confirmation.
 
 ## Verification
 
@@ -125,8 +126,9 @@ Logs and generated outputs are under
 
 ## Remaining hardware verification
 
-Verify real iPhone startup, Cardboard QR calibration, lens distortion, head
-tracking/recenter, controller input, foreground/background recovery, device
+Real iPhone startup is verified and the user confirmed the corrected recenter.
+Still verify Cardboard QR calibration, lens distortion, extreme-angle head
+tracking, controller input, device foreground/background recovery, device
 haptics, and sustained thermal/frame timing behavior. A simulator cannot
 establish these hardware properties. Game-session protocol is now 53; use a
 matching host/client for network regression tests. The old protocol-43 VR
