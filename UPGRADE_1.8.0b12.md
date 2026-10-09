@@ -35,6 +35,25 @@ outputs live in this separate worktree.
 - Regenerate `assets-ios` and stage the new builtin package
   `a-0.babuiltinassets.261007a`, Python modules, standard library, and manifest.
 
+## VR text entry
+
+In iOS VR mode, the UI uses the existing in-game keyboard for editable text
+widgets (including profile names and chat). UIKit text fields are presented
+outside the stereo render pass and are unsuitable while wearing the headset.
+The override is applied when UI configuration is loaded or reapplied; it does
+not rewrite the user's saved keyboard preference. Non-VR iOS, tvOS, and macOS
+retain their existing selection behavior. The developer console retains its
+separate platform editor path. The in-game keyboard supports its existing
+layouts; this change does not add an iOS IME or Chinese composition support.
+
+The keyboard update passed a signed device build and was installed over the
+existing Upgrade app on the connected iPhone 17. A fresh launch reached
+Ballistica initialization. Logs: `xcode-vr-keyboard-device.log`,
+`vr-keyboard-install.log`, and `vr-keyboard-runtime.log` under
+`BombSquadVR/Build/UpgradeLogs`. Profile-name editing, chat submission, and
+cancel behavior still require hands-on confirmation on the phone; no automated
+UI interaction was performed for this change.
+
 ## Verification
 
 Completed:
