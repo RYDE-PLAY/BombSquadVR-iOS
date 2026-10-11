@@ -30,6 +30,9 @@ BombSquadVR/ThirdParty/cardboard/
 BallisticaResources/*
 !BallisticaResources/README.md
 
+# Local development notes; keep these out of the public repository.
+/LocalDevelopmentNotes/
+
 # Apple signing material and local overrides
 *.ipa
 *.xcarchive/

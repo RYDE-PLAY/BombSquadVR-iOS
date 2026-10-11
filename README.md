@@ -3,9 +3,7 @@
 Unofficial online iOS Cardboard VR integration based on the Ballistica engine.
 This repository contains the integration code and build scripts.
 
-This upgrade branch integrates Ballistica 1.8.0b12 (build 23040) and pins
-Python 3.14.7. See [upgrade notes](UPGRADE_1.8.0b12.md) for migration details
-and the verification status.
+This project uses Ballistica 1.8.0b12 (build 23040) and Python 3.14.7.
 
 BallisticaResources/, the Ballistica Plus library and IPA files are not
 included. Developers must generate or obtain those inputs themselves and must
